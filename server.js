@@ -1,0 +1,42 @@
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const http = require('http');
+const app = express();
+
+// API file for interacting with MongoDB
+const api = require('./server/routes/api');
+const expenses = require('./server/routes/node_expenses');
+
+app.use(function (req, res, next) {
+    //console.log('Time:', Date.now())
+    console.log('cla');
+    next()
+  })
+// Parsers
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
+
+// Angular DIST output folder
+app.use(express.static(path.join(__dirname, 'dist/BudgeApp')));
+
+// API location
+app.use('/api', api);
+
+
+
+app.get('/expenses', expenses);
+
+// Send all other requests to the Angular app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/BudgeApp/index.html'));
+});
+
+//Set Port
+const port = process.env.PORT || '3000';
+app.set('port', port);
+
+const server = http.createServer(app);
+
+server.listen(port, () => console.log(`Running on localhost:${port}`));

@@ -1,0 +1,24 @@
+<div *ngIf="expenses">
+  <ul *ngFor="let expense of expenses">
+    <li>ID: {{expense.id}}</li>
+    <li>Name: {{expense.name}}</li>
+    <li>Total Sum: {{expense.totalSum}}</li>
+    <li>Category Name: {{expense.categoryName}}</li>
+    <li>
+      <label>name:
+        <input [(ngModel)]="expense.name" placeholder="name">
+      </label>
+   </li>
+    <li>
+      <label>Amount:
+        <input [(ngModel)]="expense.totalSum" placeholder="totalSum">
+      </label>
+    </li>
+    <li>
+      <label>Category Name:
+        <input [(ngModel)]="expense.categoryName" placeholder="categoryName">
+      </label>
+    </li>
+  </ul>
+</div>
+  
